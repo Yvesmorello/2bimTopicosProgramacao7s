@@ -1,6 +1,6 @@
 package com.example.atividadeTaskJWT.service;
 
-import com.example.atividadeTaskJWT.domain.Task;
+import com.example.atividadeTaskJWT.model.Task;
 import com.example.atividadeTaskJWT.repository.TaskRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

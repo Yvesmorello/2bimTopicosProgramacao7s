@@ -1,6 +1,6 @@
 package com.example.atividadeTaskJWT.controller;
 
-import com.example.atividadeTaskJWT.domain.Task;
+import com.example.atividadeTaskJWT.model.Task;
 import com.example.atividadeTaskJWT.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

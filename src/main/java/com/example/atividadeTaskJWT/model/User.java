@@ -1,5 +1,6 @@
 package com.example.atividadeTaskJWT.model;
 
+import com.example.atividadeTaskJWT.enums.RoleName;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -23,18 +24,14 @@ public class User implements UserDetails {
     private Long id;
     private String username;
     private String password;
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinTable(name="users_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name="role_id"))
-    private List<UserRoles> role;
+    @Enumerated(EnumType.STRING)
+    private RoleName role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.role.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
-                .collect(Collectors.toList());
+        if(this.role == RoleName.ADMIN) return List.of(new SimpleGrantedAuthority("ADMIN")
+                , new SimpleGrantedAuthority("USER"));
+        else return    List.of(new SimpleGrantedAuthority("USER"));
     }
 
     @Override
@@ -65,11 +62,11 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public List<UserRoles> getRole() {
+    public RoleName getRole() {
         return role;
     }
 
-    public void setRole(List<UserRoles> role) {
+    public void setRole(RoleName role) {
         this.role = role;
     }
 

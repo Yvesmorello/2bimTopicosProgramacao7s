@@ -8,12 +8,12 @@ public enum RoleName {
     private String role;
 
     RoleName(String role) {
-        this.role = RoleName.this.role;
+        this.role = role;
     }
     public String getStatus() {
         return role;
     }
     public void setStatus(String role) {
-        this.role = RoleName.this.role;
+        this.role = role;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.atividadeTaskJWT.model;
+/*package com.example.atividadeTaskJWT.model;
 
 import com.example.atividadeTaskJWT.enums.RoleName;
 import jakarta.persistence.*;
@@ -29,4 +29,4 @@ public class UserRoles {
         public RoleName getName() {
                 return name;
         }
-}
+}*/

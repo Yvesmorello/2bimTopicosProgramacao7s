@@ -21,7 +21,7 @@ public class UserController {
         User newUser = service.create(user);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
-
+/*
     @GetMapping
     public ResponseEntity<List<User>> findAll(){
         return ResponseEntity.ok(service.findAll());
@@ -35,5 +35,5 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         return ResponseEntity.noContent().build();
-    }
+    }*/
 }

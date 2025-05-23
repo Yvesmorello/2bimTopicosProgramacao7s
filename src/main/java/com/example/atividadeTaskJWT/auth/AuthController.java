@@ -3,6 +3,8 @@ package com.example.atividadeTaskJWT.auth;
 import com.example.atividadeTaskJWT.auth.AuthDTO;
 import com.example.atividadeTaskJWT.auth.JwtService;
 
+import com.example.atividadeTaskJWT.dto.TokenDtoResponse;
+import com.example.atividadeTaskJWT.dto.UserDtoResponse;
 import com.example.atividadeTaskJWT.model.User;
 import com.example.atividadeTaskJWT.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -33,8 +35,22 @@ public class AuthController {
         this.userService = userService;
     }
 
+    @PostMapping("/register")
+    public ResponseEntity<UserDtoResponse> register(@RequestBody AuthDTO.RegisterRequest request) {
+
+        User createdUser = userService.register(request);
+
+        UserDtoResponse response = new UserDtoResponse(
+                createdUser.getUsername(),
+                createdUser.getPassword(),
+                createdUser.getRole()
+        );
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(response);
+    }
+
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody AuthDTO.AuthRequest request) {
+    public ResponseEntity<TokenDtoResponse> login(@RequestBody AuthDTO.AuthRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.username(),
@@ -43,12 +59,10 @@ public class AuthController {
         );
 
         UserDetails user = userService.loadUserByUsername(request.username());
-        return ResponseEntity.ok(jwtService.generateToken(user));
+        String token = jwtService.generateToken(user);
+
+        return ResponseEntity.ok(new TokenDtoResponse(token));
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody AuthDTO.RegisterRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(userService.register(request));
-    }
+
 }
